@@ -1,0 +1,25 @@
+{% extends "base.html"%}
+
+{% load static %}
+
+
+
+{% block link%}
+<link rel="stylesheet" href="{% static 'static/home.css'%}">
+{% endblock%}
+
+{% block  container %}
+    <div class="form">
+       {% for  user_name in user_name  %}
+        <p> {{user_name}} {{password}}</p>
+       {% endfor %}
+        
+        <h1>Fill in information</h1>
+        <form method='get' action="/home/">
+            {% csrf_token %}
+            {{form}}
+                <button class="btn">REQUEST</button>
+            </label>
+        </form>
+    </div>
+{% endblock  %}

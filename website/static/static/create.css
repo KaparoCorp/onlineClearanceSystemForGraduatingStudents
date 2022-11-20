@@ -1,0 +1,26 @@
+*{
+    font-family: monospace;
+    font-size: large;
+    margin: 0;
+    padding: 0;
+}
+
+.form{
+    position: relative;
+}
+
+
+.form form{ 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50vh;
+    transform: translate(-50px,-50%);
+}
+
+.form form .btn{
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+}
