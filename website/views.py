@@ -1,51 +1,88 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
-
-from .form import CreateNew, RegistrationForm
-from .models import DepartmentInfo, SchoolInfo, StudentInfo, UserInfo
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django import forms
+from .form import LoginForm, register , StudentForm, AdminClearance
+from django.contrib.auth.forms import UserCreationForm 
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from .models import UserInfo, Student, ClearanceForm
 
 # Create your views here.
+def home (request):
+    return render(request, "home.html", {})
 
-def create(request):
+
+def loginView(request):
     if request.method == "POST":
-        form = CreateNew(request.POST)
+        owner = request.user
+        form = LoginForm(request.POST or None)
         
-        if form.is_valid(): 
-            # user_name = form.cleaned_data["username"]
-            # password = form.cleaned_data["password"]
-             form.save()
+        if form.is_valid():
+            username = request.POST.get("username", '')
+            password = request.POST.get('password', '')
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                studentInfo = Student.objects.get(username=username)
+                user_info = UserInfo(userInfo=request.user,student=studentInfo)
+                user_info.save()
+                return redirect('clearance')
+            else:
+                messages.error(request, ('username or password is invalid'))
+                return render(request, "registration/login.html", {'form': form,})
 
     else:
-        form = CreateNew()
+        form = LoginForm()
+    
+    return render(request, "registration/login.html", {"form": form})
 
-    return render(request, "create.html", {"form": form})
-
-def registration(response):
-    if response.method == "GET":
-        form = RegistrationForm(response.GET)
+def registration(request):
+    if request.method == 'POST':
+        form = register(request.POST or None)
 
         if form.is_valid():
-            registrationNumber = form.cleaned_data["registration_number"]
-            school = form.cleaned_data["school"]
-            department = form.cleaned_data["department"]
-            academicYear = form.cleaned_data["academic_year"]
-            yearOfStudy = form.cleaned_data["year_of_study"]
+           email = request.POST.get("email", '')
+           new = User.objects.filter(email=email)
+           
+           if new.count():  
+                messages.error(request, ('The email {} already exists').format(email))
+                return redirect('registration')
+           else:
+               form.save()
+               return redirect('loginView')
 
-
-
-            return render(response, "fee.html", {})
-
-
-        
     else:
-        form = RegistrationForm()
-   
-    return render(response, "registration.html", {"form": form})
+        form = register()
+    return render(request, "registration.html", {"form": form})
 
+def clearance(request):
+    user = request.user
+    studentInfo = Student.objects.get(username=user.username)
+    return render(request, "clearanceform.html", {"user": user, "student":studentInfo })
 
+def adminPage(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('studentClearance')
+    else:
+        form = StudentForm()
+    return render(request, "admin.html", {"form":form})
 
-def home(response):
-    return render(response, "home.html", {})
+def studentClearance(request):
+    if request.method == 'POST':
+        form = AdminClearance(request.POST or None)
 
+        if form.is_valid():
+
+            form.save()
+            return redirect('clearance')
+    else:
+        form = AdminClearance()
+    
+    
+    return render(request, "adminClear.html", {"form":form})

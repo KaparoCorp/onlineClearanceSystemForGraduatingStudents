@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static%}
+{% load crispy_forms_tags %}
+
+{% block link%}
+    <link rel="stylesheet" href="{% static 'static/create.css'%}">
+{% endblock %}
+
+{% block content %}
+<main>
+    
+    <div class="form">
+            <form method="POST" action="" id="loginForm">
+                
+                {% if messages %}
+                    {% for message in messages%}
+                       <p> {{message}}</p>
+                     {% endfor %}
+                {% endif %}
+                <img src="{% static 'static/header.jpeg'%}" alt="rongo logo">
+                {% csrf_token %}
+                {{form|crispy}}
+                <a href=''>forgot password</a>
+                <button type="submit" class="btn" form="loginForm" >login</button>
+            </form>
+        
+       
+    </div>
+</main>
+   
+{% endblock %}

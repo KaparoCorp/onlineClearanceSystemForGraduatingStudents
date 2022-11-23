@@ -5,60 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block link%}
-    <link rel="stylesheet" href="{% static 'static/base.css'%}">
+    {% block link %}
+        <link rel="stylesheet" href="{% static 'static/base.css'%}">
     {% endblock %}
-    
-    <title>Home Page</title>
+    {% block title%}
+    <title>Document</title>
+    {% endblock %}
 </head>
 <body>
-    <div class="header">
-        <h1>Online Clearance Form</h1>
-    </div>
-    <div class="container">
-        <div class="content">
-            <h1>About us</h1>
-            <p>
-                This platform helps a students in the area of clearing the school and reduces the stress of moving from department to department with documents
-                in order to clear.
-            </p>
-            <p>
-                It involves registering and requesting you clearance statement to know your 
-                financial statements and know if you have balance in any department you can not clear till you
-                clear the fee.
-            </p>
-            <p> 
-                Departments to clear from involve 
-                <ul>
-                    <li>Head of department</li>
-                    <li>Dean of school</li>
-                    <li>University library</li>
-                    <li>University Accommodetions Section</li>
-                    <li>Catering Section</li>
-                    <li>Health Unit</li>
-                    <li>Games and Sports Office</li>
-                    <li>Dean of Students</li>
-                    <li>Central Services</li>
-                    <li>Student's finance</li>
-                    <li>Registrar</li>
-
-
-
-                </ul>
-            </p>
-        </div>
-    </div>
-
     
-    {% block userInformation %}
+    {% block header %}
         
-    {% endblock userInformation %}
+    {% endblock header %}
         
-    <div class="container">
-        {% block container%}
-      <a href="registration">click to register</a>
-      <a href="create">click to login</a>
-        {% endblock%}
-    </div>
+    {% block content %}
+    <h1>WElcome{{username}}</h1>
+    asdfadsgasdgasdg
+    {% endblock %}
 </body>
 </html>

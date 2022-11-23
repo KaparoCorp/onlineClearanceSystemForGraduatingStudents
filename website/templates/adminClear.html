@@ -3,12 +3,8 @@
 {% load crispy_forms_tags%}
 
 {% block link%}
-    <link rel="stylesheet" href="{% static 'static/register.css'%}">
-{% endblock link%}
-{% block title%}
-<title>Registration</title>
+    <link rel="stylesheet" href="{% static 'static/create.css'%}">
 {% endblock %}
-
 
 {% block content %}
     <div class="form">
@@ -24,10 +20,9 @@
             <a href=''>forgot password</a>
             <div class="btn-deco">
                 <input type="submit" class="btn" name="save" value="register">
-                <a href="/login">login</a>
             </div>
             
         </form>
-    </div>
+    </div> 
     
 {% endblock %}

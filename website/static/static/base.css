@@ -2,20 +2,3 @@
     font-family: monospace;
 }
 
-a{
-    background-image: url(../Images/rongo_university.jpeg);
-}
-.container{
-    position: relative;
-    width: 100%;
-    
-}
-
-.form form{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    align-items: center;
-    justify-content: center ;
-    top: 50%;
-}

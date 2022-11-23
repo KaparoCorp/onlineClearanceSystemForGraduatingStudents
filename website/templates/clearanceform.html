@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block link %}
+        <link rel="stylesheet" href="{% static 'static/clearanceform.css'%}">
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <div class="heading">
+            <div class="content">
+                <img src="{% static 'static/header.jpeg'%}" alt="rongo logo">
+                <div class="header">
+                    <h1>Welcome {{student.first_name}} {{student.second_name}}</h1>
+                    <div class="menu">
+                        <a href="/">home</a>
+                        <a href="/logout">logout</a> 
+                    </div>
+   
+                </div>
+               
+                <p> <span>Regestration Number :</span> <span>{{student.registration_number}}</span></p> 
+                <p>Academic Year : <span></span><span>{{ student.academic_year}}</span></p>
+                <p>Year of stud:<span></span><span>{{ student.year_of_study}}</span></p>
+                <p>School:<span></span><span>{{ student.school}}</span></p>
+
+                <h2>Clearance Form</h2>
+                <table style="width:100%"> 
+                    <tr>
+                        <th>Office/Departments</th>
+                        <th>Particulars not returned</th>
+                        <th>Clearance State</th>
+                        <th>Date modified</th>
+                    </tr>
+                    <tr>
+                        <td>Head of Department</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Head of Department</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Dean of School</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>University Library</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>University Accommodation Section</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Catering Section</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Health Unit</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Games and Sports Office</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Dean of Students</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Central Services</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Students Finance</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Registrar</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Finance Officer</td>
+                        <td><input type="text"></td>
+                        <td>
+                             <select name="clearanceState" id="clearance">
+                                <option value="cleared">cleared</option>
+                                <option value="notCleared">Not cleared</option>
+                                <input type="date">
+                            </select></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            
+        </div>
+
+    </div>
+{% endblock content %}
+    

@@ -1,22 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-</head>
-<body>
-    <div class="header">
-        <h1>Welcome to the online clearance form</h1>
-    </div>
-    
-    <div class="user">
-        <div class="userInfo">
-            
-        </div>
-    </div>
-   <P>AN EMAIL HAS BEEN SENT TO YOUR ACCOUNT</P>
+{% extends 'base.html' %}
+{% load static%}
 
-</body>
-</html>
+{% block link %}
+        <link rel="stylesheet" href="{% static 'static/home.css'%}">
+{% endblock %}
+
+{% block header%}
+    <header>
+        <div class="menubar">
+            <div class="menu">
+                <ul>
+                    <li><a href="">menu</a></li>
+                    <li><a href="">about us</a></li>
+                    <li><a href="login">login</a></li>
+                    <li><a href="registration">register</a></li>
+                    <li><a href="adminPage">admin</a></li>
+                    <li><a href="">contact us</a></li>
+                    <li><a href="">faq's</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </header>
+{% endblock%}
+
+
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="content">
+                <h1>online clearance form</h1>
+                <div class="aboutUs">
+                    <h2>about us</h2>
+                <p>
+                    This is an online clearance system that helps students to clear from different departments that they are required to clear 
+                    from in order to be able to clear from the school and get there certificate.
+                </p>
+                <p>
+                    It will help save time and resources for both the student and school management.It is also going in accordance with the goal of the school being more online oriented.
+                </p>
+                <p>
+                    The departments that student need to clear from include :-
+                </p>
+                    <ol>
+                        <li>Head of department</li>
+                        <li>Dean of school</li>
+                        <li>University library</li>
+                        <li>University Accommodations Section</li>
+                        <li>Catering Section</li>
+                        <li>Health Unit</li>
+                        <li>Games and Sports Office</li>
+                        <li>Dean of Students</li>
+                        <li>Central Services</li>
+                        <li>Student's finance</li>
+                        <li>Registrar</li>
+                        <li>Financial officer</li>
+                    </ol>
+                <p>
+                    The financial officer is the one who has the admin authorization of adding and removing students to the clearance form database that contains data 
+                    of students and if/not they have a balance with the school.
+                </p>
+                </div>
+                <div class="faq">
+                    <h2>faq's</h2>
+                    <p>Most asked question?</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+{% endblock %}

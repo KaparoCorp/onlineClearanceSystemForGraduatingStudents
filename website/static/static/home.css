@@ -1,7 +1,29 @@
-*{
-    font-family: monospace;
+ul{
+    display:flex;
+}
+ul li{
+    list-style: none;
+    margin: 0.1rem;
+    display: grid;
+    text-align: center;
+    
 }
 
-.form form{
-    display: grid;
+ul li a{
+    color: black;
+    background-color: whitesmoke;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border: 2px solid black;   
+}
+
+ul li a:hover{
+    color: white;
+    background-color: black;
+}
+
+h1{
+    text-transform: uppercase;
+    text-align: center;
 }

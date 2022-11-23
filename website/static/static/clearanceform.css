@@ -1,0 +1,31 @@
+.header{
+    display: flex;
+    text-align: center;
+    justify-content: space-between; 
+    background: black;
+    color: white;
+}
+
+h1{
+    text-decoration: underline;
+}
+
+img{
+    position: relative;
+    left:50%;
+    transform:translate(-50%, 0);
+}
+
+a{
+    color: white;
+    background: black;
+    text-decoration: none;
+    margin: 10px;
+    padding: 1rem;
+    text-transform: uppercase;
+}
+
+a:hover{
+    color:black;
+    background: white;
+}

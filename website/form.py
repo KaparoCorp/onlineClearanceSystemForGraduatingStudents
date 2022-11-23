@@ -1,38 +1,83 @@
 from django import forms
-from .models import UserInfo, StudentPersonalInfo
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.forms import ModelForm
+from .models import Student, ClearanceForm
 
-
-choice = (
-    ("1", "Education"),
-    ("2","Science Agriculture and Environmental Studies" ) ,
-    ("3","Information and communication" ),
-    ("4" , "arts"),
-)
-
-class CreateNew(forms.Form):
-    username = forms.CharField(label="USERNAME", max_length=200)
-    password = forms.CharField(label="PASSWORD", max_length=200)
-
-    def clean_message(self):
-        user_name = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-
-        user = UserInfo.objects.filter(userName = user_name)
-        if not user:
-            raise forms.ValidationError("Wrong username / password")
-        return user_name , password
-
-
-   
-
-class RegistrationForm(forms.Form):
-    registration_number = forms.CharField(label="REGISTRATION NUMBER", max_length=200)
-    school = forms.ChoiceField(label="School", choices=choice )
-    department = forms.CharField(label="Department", max_length=100)
-    academic_year = forms.CharField(label="Academic Year", max_length=15)
-    year_of_study= forms.IntegerField(label="Year of Study", max_value=4)
-
-   
+class LoginForm(forms.Form):
+    username = forms.CharField(label="USERNAME", max_length=20 )
+    password = forms.CharField(label="PASSWORD", max_length=20, widget=forms.PasswordInput() )
     class Meta:
-        model = StudentPersonalInfo
-        fields=["Registration_number", "school", "department", "academic_year" "year_of_study"]
+        model = User
+
+class register(UserCreationForm):
+    username = forms.CharField(label="USERNAME", max_length=20)
+    email = forms.EmailField(label="EMAIL", max_length=150)
+    
+
+    def username_clean(self):  
+        username = self.cleaned_data['username']  
+        new = User.objects.filter(username = username)  
+        if new.count():  
+            raise ValidationError("User Already Exist")  
+        return username  
+        
+    def email_clean(self):  
+        email = self.cleaned_data['email'].lower()  
+        new = User.objects.filter(email=email)  
+        if new.count():  
+            raise ValidationError(" Email Already Exist")  
+        return email  
+        
+    def clean_password2(self):  
+        password1 = self.cleaned_data['password1']  
+        password2 = self.cleaned_data['password2']  
+
+        if password1 and password2 and password1 != password2:  
+            raise ValidationError("Password don't match")  
+        return password2 
+
+    def clean_firstname(self):
+        first_name = self.cleaned_data['firstname']
+        return first_name
+
+    def clean_lastname(self):
+        last_name = self.cleaned_data['lastname']
+        return last_name    
+    
+    class Meta:
+        model = User
+        fields = ['username','email','first_name','last_name']
+
+class StudentForm(ModelForm):
+    class Meta:
+        model = Student
+        fields = ['registration_number','username','first_name','last_name','year_of_study', 'academic_year', 'school']
+
+class AdminClearance(forms.Form):
+    student = forms.CharField(max_length=20)
+    hod = forms.BooleanField(required=False)
+    dean_of_school = forms.BooleanField(required=False)
+    university_library= forms.BooleanField(required=False)
+    university_accommodations_section = forms.BooleanField(required=False)
+    catering_section = forms.BooleanField(required=False)
+    health_unit = forms.BooleanField(required=False)
+    games_and_sports_office = forms.BooleanField(required=False)
+    dean_of_students = forms.BooleanField(required=False)
+    central_services = forms.BooleanField(required=False)
+    student_finance = forms.BooleanField(required=False)
+    registrar = forms.BooleanField(required=False)
+    finance_officer = forms.IntegerField(required=False)
+
+    def username_clean(self):  
+        username = self.cleaned_data['username']  
+        new = User.objects.filter(username = username)  
+        if new.count():  
+            raise ValidationError("User Already Exist")  
+        return username  
+    
+
+    class Meta:
+        model = ClearanceForm
+        fields= ['hod', 'dean_of_school', 'university_library', 'university_accommodations_section', 'catering_section', 'health_unit', 'games_and_sports_office', 'dean_of_students', 'central_services', 'student_finance', 'registrar', 'finance_officer'] 
