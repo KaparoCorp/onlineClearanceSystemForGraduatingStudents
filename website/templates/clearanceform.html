@@ -9,9 +9,9 @@
     <div class="main">
         <div class="heading">
             <div class="content">
-                <img src="{% static 'static/header.jpeg'%}" alt="rongo logo">
+                <img id='header' src="{% static 'static/header.jpeg'%}" alt="rongo logo">
                 <div class="header">
-                    <h1>Welcome {{student.first_name}} {{student.second_name}}</h1>
+                    <h1>Welcome {{student.first_name}}  {{student.last_name}}<a><img id="profile" src="{% static 'static/human.png'%}" alt="Profile pic "></a></h1>
                     <div class="menu">
                         <a href="/">home</a>
                         <a href="/logout">logout</a> 
@@ -35,132 +35,80 @@
                     <tr>
                         <td>Head of Department</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.hod}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Head of Department</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.hod}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Dean of School</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.dean_of_school}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>University Library</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.university_library}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>University Accommodation Section</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.university_accommodations_section}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Catering Section</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.catering_section}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Health Unit</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.health_unit}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Games and Sports Office</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.games_and_sports_office}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Dean of Students</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.dean_of_students}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Central Services</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.central_services}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Students Finance</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.student_finance}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Registrar</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.registrar}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     <tr>
                         <td>Finance Officer</td>
                         <td><input type="text"></td>
-                        <td>
-                             <select name="clearanceState" id="clearance">
-                                <option value="cleared">cleared</option>
-                                <option value="notCleared">Not cleared</option>
-                                <input type="date">
-                            </select></td>
+                        <td>{{clearanceformData.finance_officer}}</td>
+                        <td><input type="date"></td>
                     </tr>
                     
                 </table>

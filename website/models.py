@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 class Student(models.Model):
 
     schools=(
-        ('EDU','Education'),
-        ('ASSB','Arts, Social Science and Business'),
-        ('INFOCOM','Information Communication and Media Studies'),
-        ('SAES','Science Agriculture and Environmental Studies')
+        ('Education','Education'),
+        ('Arts, Social Science and Business','Arts, Social Science and Business'),
+        ('Information Communication and Media Studies','Information Communication and Media Studies'),
+        ('Science Agriculture and Environmental Studies','Science Agriculture and Environmental Studies')
     )
     
     registration_number = models.CharField(max_length=20, unique=True, primary_key=True)

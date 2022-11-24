@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from .models import UserInfo, Student, ClearanceForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home (request):
@@ -52,37 +53,115 @@ def registration(request):
                 return redirect('registration')
            else:
                form.save()
-               return redirect('loginView')
+               return redirect('clearanceRegistration')
 
     else:
         form = register()
     return render(request, "registration.html", {"form": form})
 
+@login_required
 def clearance(request):
     user = request.user
     studentInfo = Student.objects.get(username=user.username)
-    return render(request, "clearanceform.html", {"user": user, "student":studentInfo })
+    clearanceformData = studentInfo.clearanceform_set.filter(student=studentInfo)[0]
+    print(clearanceformData)
+    print(studentInfo)
+    return render(request, "clearanceform.html", {"user": user, "student":studentInfo, "clearanceformData":clearanceformData })
 
-def adminPage(request):
+def clearanceRegistration(request):
     if request.method == 'POST':
         form = StudentForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return redirect('studentClearance')
+            return redirect('loginView')
     else:
         form = StudentForm()
     return render(request, "admin.html", {"form":form})
 
+@login_required
 def studentClearance(request):
+    user=request.user
     if request.method == 'POST':
         form = AdminClearance(request.POST or None)
+        
 
         if form.is_valid():
-
-            form.save()
+            student = request.POST.get("student", '')
+            hod = request.POST.get("hod", '')
+            dean_of_school = request.POST.get("dean_of_school", '')
+            university_library = request.POST.get("university_library", '')
+            university_accommodations_section = request.POST.get("university_accommodations_section", '')
+            catering_section = request.POST.get("catering_section", '')
+            health_unit = request.POST.get("health_unit", '')
+            games_and_sports_office = request.POST.get("games_and_sports_office", '')
+            dean_of_students = request.POST.get("dean_of_students", '')
+            central_services = request.POST.get("central_services", '')
+            student_finance = request.POST.get("student_finance", '')
+            registrar = request.POST.get("registrar", '')
+            finance_officer= request.POST.get("finance_officer", '')
+            student_id = Student.objects.filter(registration_number=student)
+            if hod == "":
+                hod = False
+            else:
+                hod = True
+            if dean_of_school == "":
+                dean_of_school = False
+            else:
+                dean_of_school = True
+            if university_library == "":
+                university_library = False
+            else:
+                university_library = True
+            if university_accommodations_section == "":
+                university_accommodations_section = False
+            else:
+                university_accommodations_section = True
+            if catering_section == "":
+                catering_section = False
+            else:
+                catering_section = True
+            if health_unit == "":
+                health_unit= False
+            else:
+                health_unit = True
+            if games_and_sports_office == "":
+                games_and_sports_office = False
+            else:
+                games_and_sports_office = True
+            if dean_of_students == "":
+                dean_of_students = False
+            else:
+                dean_of_students = True
+            if central_services == "":
+                central_services = False
+            else:
+                central_services = True
+            if student_finance == "":
+                student_finance = False
+            else:
+                student_finance = True
+            if registrar == "":
+                registrar = False
+            else:
+                registrar = True
+            clearanceState = ClearanceForm(student=student_id[0],
+                hod=hod,
+                dean_of_school=dean_of_school,
+                university_library=university_library,
+                university_accommodations_section=university_accommodations_section,
+                catering_section=catering_section,
+                health_unit=health_unit,
+                games_and_sports_office=games_and_sports_office,
+                dean_of_students=dean_of_students,
+                central_services=central_services,
+                student_finance=student_finance,
+                registrar= registrar,
+                finance_officer=finance_officer,
+                )
+            clearanceState.save()
             return redirect('clearance')
     else:
         form = AdminClearance()
     
     
-    return render(request, "adminClear.html", {"form":form})
+    return render(request, "adminClear.html", {"form":form, "user":user})

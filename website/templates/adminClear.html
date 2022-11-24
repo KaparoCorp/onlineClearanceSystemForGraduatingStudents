@@ -6,23 +6,26 @@
     <link rel="stylesheet" href="{% static 'static/create.css'%}">
 {% endblock %}
 
-{% block content %}
-    <div class="form">
-        <form method="POST" action="">
-            <img src="{% static 'static/header.jpeg'%}" alt="rongo logo">
-            {% if messages %}
-                    {% for message in messages%}
-                       <p> {{message}}</p>
-                     {% endfor %}
-                {% endif %}
-            {% csrf_token %}
-            {{form|crispy}}
-            <a href=''>forgot password</a>
-            <div class="btn-deco">
-                <input type="submit" class="btn" name="save" value="register">
-            </div>
+{%if user.is_authenticated%}
+        {% block content %}
+            <div class="form">
+                <form method="POST" action="">
+                    <img src="{% static 'static/header.jpeg'%}" alt="rongo logo">
+                    {% if messages %}
+                            {% for message in messages%}
+                            <p> {{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <div class="btn-deco">
+                        <input type="submit" class="btn" name="save" value="register">
+                    </div>
+                    
+                </form>
+            </div> 
             
-        </form>
-    </div> 
-    
-{% endblock %}
+        {% endblock %}
+{% else %}
+        <h1>You are not Authenticated to be here and you know it</h1>
+{% endif %}

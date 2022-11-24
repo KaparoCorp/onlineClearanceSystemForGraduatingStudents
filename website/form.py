@@ -69,15 +69,9 @@ class AdminClearance(forms.Form):
     student_finance = forms.BooleanField(required=False)
     registrar = forms.BooleanField(required=False)
     finance_officer = forms.IntegerField(required=False)
-
-    def username_clean(self):  
-        username = self.cleaned_data['username']  
-        new = User.objects.filter(username = username)  
-        if new.count():  
-            raise ValidationError("User Already Exist")  
-        return username  
+        
     
 
     class Meta:
         model = ClearanceForm
-        fields= ['hod', 'dean_of_school', 'university_library', 'university_accommodations_section', 'catering_section', 'health_unit', 'games_and_sports_office', 'dean_of_students', 'central_services', 'student_finance', 'registrar', 'finance_officer'] 
+        fields= ['student','hod', 'dean_of_school', 'university_library', 'university_accommodations_section', 'catering_section', 'health_unit', 'games_and_sports_office', 'dean_of_students', 'central_services', 'student_finance', 'registrar', 'finance_officer'] 
