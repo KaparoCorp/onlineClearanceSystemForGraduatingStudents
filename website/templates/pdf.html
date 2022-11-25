@@ -1,141 +1,178 @@
 {% extends 'base.html' %}
 
-<table style="width:100%"> 
-    <tr>
-        <th>Office/Departments</th>
-        <th>Particulars not returned</th>
-        <th>Clearance State</th>
-        <th>Date modified</th>
-    </tr>
-    <tr>
-        <td>Head of Department</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Head of Department</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Dean of School</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>University Library</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>University Accommodation Section</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Catering Section</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Health Unit</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Games and Sports Office</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Dean of Students</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Central Services</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Students Finance</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Registrar</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    <tr>
-        <td>Finance Officer</td>
-        <td><input type="text"></td>
-        <td>
-             <select name="clearanceState" id="clearance">
-                <option value="cleared">cleared</option>
-                <option value="notCleared">Not cleared</option>
-                <input type="date">
-            </select></td>
-    </tr>
-    
-</table>
+{% load static%}
+{% load crispy_forms_tags%}
+
+{% block link%}
+    <link rel="stylesheet" href="{% static 'static/create.css'%}">
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <form method="POST" >
+        <img src="{% static 'static/header.jpeg'%}" alt="rongo logo">
+        {% if messages %}
+                        {% for message in messages%}
+                        <p> {{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% csrf_token %}
+ 
+
+        <table style="width:100%"> 
+            <tr>
+                <th>Office/Departments</th>
+                <th>Particulars not returned</th>
+                <th>Clearance State</th>
+                <th>Date modified</th>
+            </tr>
+            <tr>
+                <td>Head of Department</td>
+                <td><input type="text" name="hodParticular"></td>
+                <td>
+                    <select name="hodClearanceState" id="clearance" required="True">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="hodDate"></td>
+            </tr>
+            <tr>
+                <td>Dean of School</td>
+                <td><input type="text" name="dean_of_schoolParticular"></td>
+                <td>
+                    <select name="dean_of_schoolClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="dean_of_schoolDate"></td>
+            </tr>
+            <tr>
+                <td>University Library</td>
+                <td><input type="text" name="university_libraryParticular"></td>
+                <td>
+                    <select name="university_libraryClearanceState" id="clearance" >
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="university_libraryDate"></td>
+            </tr>
+            <tr>
+                <td>University Accommodation Section</td>
+                <td><input type="text" name="university_accommodation_sectionParticular"></td>
+                <td>
+                    <select name="university_accommodation_sectionClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="university_accommodation_sectionDate"></td>
+            </tr>
+            <tr>
+                <td>Catering Section</td>
+                <td><input type="text" name="catering_sectionParticular"></td>
+                <td>
+                    <select name="catering_sectionClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="catering_sectionDate"></td>
+            </tr>
+            <tr>
+                <td>Health Unit</td>
+                <td><input type="text" name="health_unitParticular"></td>
+                <td>
+                    <select name="health_unitClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="health_unitDate"></td>
+            </tr>
+            <tr>
+                <td>Games and Sports Office</td>
+                <td><input type="text" name="games_and_sports_officeParticular"></td>
+                <td>
+                    <select name="games_and_sports_officeClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="games_and_sports_officeDate"></td>
+            </tr>
+            <tr>
+                <td>Dean of Students</td>
+                <td><input type="text" name="dean_of_studentsParticular"></td>
+                <td>
+                    <select name="dean_of_studentsClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="dean_of_studentsDate"></td>
+            </tr>
+            <tr>
+                <td>Central Services</td>
+                <td><input type="text" name="central_servicesParticular"></td>
+                <td>
+                    <select name="central_servicesClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="central_servicesDate"></td>
+            </tr>
+            <tr>
+                <td>Students Finance</td>
+                <td><input type="text" name="student_financeParticular"></td>
+                <td>
+                    <select name="student_financeClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="student_financeDate"></td>
+            </tr>
+            <tr>
+                <td>Registrar</td>
+                <td><input type="text" name="registrarParticular"></td>
+                <td>
+                    <select name="registrarClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="registrarDate"></td>
+            </tr>
+            <tr>
+                <td>Finance Officer</td>
+                <td><input type="text" name="finance_officerParticular"></td>
+                <td>
+                    <select name="finance_officerClearanceState" id="clearance">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="cleared">cleared</option>
+                        <option value="notCleared">Not cleared</option>
+                    </select>
+            </td>
+                <td><input type="date" name="finance_officerDate"></td>
+            </tr>
+            
+        </table>
+        <button>REGISTER</button>
+    </form>
+</div>
+{% endblock %}

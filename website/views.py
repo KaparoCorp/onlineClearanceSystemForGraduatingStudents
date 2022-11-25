@@ -6,39 +6,16 @@ from django import forms
 from .form import LoginForm, register , StudentForm, AdminClearance
 from django.contrib.auth.forms import UserCreationForm 
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User , Group
 from .models import UserInfo, Student, ClearanceForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
+@csrf_exempt
 def home (request):
     return render(request, "home.html", {})
-
-
-def loginView(request):
-    if request.method == "POST":
-        owner = request.user
-        form = LoginForm(request.POST or None)
-        
-        if form.is_valid():
-            username = request.POST.get("username", '')
-            password = request.POST.get('password', '')
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-                studentInfo = Student.objects.get(username=username)
-                user_info = UserInfo(userInfo=request.user,student=studentInfo)
-                user_info.save()
-                return redirect('clearance')
-            else:
-                messages.error(request, ('username or password is invalid'))
-                return render(request, "registration/login.html", {'form': form,})
-
-    else:
-        form = LoginForm()
-    
-    return render(request, "registration/login.html", {"form": form})
 
 def registration(request):
     if request.method == 'POST':
@@ -53,27 +30,48 @@ def registration(request):
                 return redirect('registration')
            else:
                form.save()
-               return redirect('clearanceRegistration')
+               return redirect('loginView')
 
     else:
         form = register()
     return render(request, "registration.html", {"form": form})
 
-@login_required
-def clearance(request):
-    user = request.user
-    studentInfo = Student.objects.get(username=user.username)
-    clearanceformData = studentInfo.clearanceform_set.filter(student=studentInfo)[0]
-    print(clearanceformData)
-    print(studentInfo)
-    return render(request, "clearanceform.html", {"user": user, "student":studentInfo, "clearanceformData":clearanceformData })
+def loginView(request):
+    if request.method == "POST":
+        owner = request.user
+        form = LoginForm(request.POST or None)
+        
+        if form.is_valid():
+            username = request.POST.get("username", '')
+            password = request.POST.get('password', '')
+            user = authenticate(request, username=username, password=password)
 
+            if user is not None:
+                group = Group.objects.get(name='studentGroup')
+                user.groups.add(group)
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.error(request, ('username or password is invalid'))
+                return render(request, "registration/login.html", {'form': form,})
+
+    else:
+        form = LoginForm()
+    
+    return render(request, "registration/login.html", {"form": form})
+
+
+@login_required
 def clearanceRegistration(request):
+    user = request.user
     if request.method == 'POST':
         form = StudentForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return redirect('loginView')
+            studentInfo = Student.objects.get(username=user.username)
+            user_info = UserInfo(userInfo=user,student=studentInfo)
+            user_info.save()
+            return redirect('clearance')
     else:
         form = StudentForm()
     return render(request, "admin.html", {"form":form})
@@ -100,50 +98,7 @@ def studentClearance(request):
             registrar = request.POST.get("registrar", '')
             finance_officer= request.POST.get("finance_officer", '')
             student_id = Student.objects.filter(registration_number=student)
-            if hod == "":
-                hod = False
-            else:
-                hod = True
-            if dean_of_school == "":
-                dean_of_school = False
-            else:
-                dean_of_school = True
-            if university_library == "":
-                university_library = False
-            else:
-                university_library = True
-            if university_accommodations_section == "":
-                university_accommodations_section = False
-            else:
-                university_accommodations_section = True
-            if catering_section == "":
-                catering_section = False
-            else:
-                catering_section = True
-            if health_unit == "":
-                health_unit= False
-            else:
-                health_unit = True
-            if games_and_sports_office == "":
-                games_and_sports_office = False
-            else:
-                games_and_sports_office = True
-            if dean_of_students == "":
-                dean_of_students = False
-            else:
-                dean_of_students = True
-            if central_services == "":
-                central_services = False
-            else:
-                central_services = True
-            if student_finance == "":
-                student_finance = False
-            else:
-                student_finance = True
-            if registrar == "":
-                registrar = False
-            else:
-                registrar = True
+        
             clearanceState = ClearanceForm(student=student_id[0],
                 hod=hod,
                 dean_of_school=dean_of_school,
@@ -158,10 +113,21 @@ def studentClearance(request):
                 registrar= registrar,
                 finance_officer=finance_officer,
                 )
-            clearanceState.save()
+            if user.is_staff:
+                clearanceState.save()
+            else:
+                return redirect('home')
             return redirect('clearance')
     else:
         form = AdminClearance()
     
     
     return render(request, "adminClear.html", {"form":form, "user":user})
+
+
+@login_required
+def clearance(request):
+    user = request.user
+    studentInfo = Student.objects.get(username=user.username)
+    clearanceformData = studentInfo.clearanceform_set.filter(student=studentInfo)[0]
+    return render(request, "clearanceform.html", {"user": user, "student":studentInfo, "clearanceformData":clearanceformData })

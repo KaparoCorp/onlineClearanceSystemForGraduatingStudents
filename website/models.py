@@ -11,14 +11,13 @@ class Student(models.Model):
         ('Information Communication and Media Studies','Information Communication and Media Studies'),
         ('Science Agriculture and Environmental Studies','Science Agriculture and Environmental Studies')
     )
-    
+
     registration_number = models.CharField(max_length=20, unique=True, primary_key=True)
     academic_year = models.CharField(max_length=20)
     school = models.CharField(max_length=50, choices=schools)
     year_of_study = models.IntegerField()
     username = models.CharField(max_length=20)
-    first_name = models.CharField(max_length=10)
-    last_name = models.CharField(max_length=10)
+    department = models.CharField(max_length=20)
 
 class UserInfo(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -98,18 +97,22 @@ class FinanceOfficer(models.Model):
     name = models.CharField(max_length=15)
 
 class ClearanceForm(models.Model):
+    is_cleared = (
+        ('cleared','cleared'),
+        ('not cleared', 'not cleared')
+    )
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    hod = models.BooleanField()
-    dean_of_school = models.BooleanField()
-    university_library= models.BooleanField()
-    university_accommodations_section = models.BooleanField()
-    catering_section = models.BooleanField()
-    health_unit = models.BooleanField()
-    games_and_sports_office = models.BooleanField()
-    dean_of_students = models.BooleanField()
-    central_services = models.BooleanField()
-    student_finance = models.BooleanField()
-    registrar = models.BooleanField()
+    hod = models.CharField(max_length=15, choices=is_cleared)
+    dean_of_school = models.CharField(max_length=15, choices=is_cleared)
+    university_library= models.CharField(max_length=15, choices=is_cleared)
+    university_accommodations_section = models.CharField(max_length=15, choices=is_cleared)
+    catering_section = models.CharField(max_length=15, choices=is_cleared)
+    health_unit = models.CharField(max_length=15, choices=is_cleared)
+    games_and_sports_office = models.CharField(max_length=15, choices=is_cleared)
+    dean_of_students = models.CharField(max_length=15, choices=is_cleared)
+    central_services = models.CharField(max_length=15, choices=is_cleared)
+    student_finance = models.CharField(max_length=15, choices=is_cleared)
+    registrar = models.CharField(max_length=15, choices=is_cleared)
     finance_officer = models.IntegerField()
    
     

@@ -5,13 +5,17 @@
         <link rel="stylesheet" href="{% static 'static/clearanceform.css'%}">
 {% endblock %}
 
+{% block header%}
+   
+{% endblock%}
+
 {% block content %}
     <div class="main">
         <div class="heading">
             <div class="content">
                 <img id='header' src="{% static 'static/header.jpeg'%}" alt="rongo logo">
                 <div class="header">
-                    <h1>Welcome {{student.first_name}}  {{student.last_name}}<a><img id="profile" src="{% static 'static/human.png'%}" alt="Profile pic "></a></h1>
+                    <h1>Welcome {{user.first_name}}  {{user.last_name}}<a><img id="profile" src="{% static 'static/human.png'%}" alt="Profile pic "></a></h1>
                     <div class="menu">
                         <a href="/">home</a>
                         <a href="/logout">logout</a> 
@@ -21,7 +25,7 @@
                
                 <p> <span>Regestration Number :</span> <span>{{student.registration_number}}</span></p> 
                 <p>Academic Year : <span></span><span>{{ student.academic_year}}</span></p>
-                <p>Year of stud:<span></span><span>{{ student.year_of_study}}</span></p>
+                <p>Year of study:<span></span><span>{{ student.year_of_study}}</span></p>
                 <p>School:<span></span><span>{{ student.school}}</span></p>
 
                 <h2>Clearance Form</h2>

@@ -53,22 +53,27 @@ class register(UserCreationForm):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
-        fields = ['registration_number','username','first_name','last_name','year_of_study', 'academic_year', 'school']
+        fields = ['registration_number','username','year_of_study', 'academic_year', 'school', 'department']
 
 class AdminClearance(forms.Form):
+    is_cleared = (
+        ('cleared','cleared'),
+        ('not cleared', 'not cleared')
+        )
+     
     student = forms.CharField(max_length=20)
-    hod = forms.BooleanField(required=False)
-    dean_of_school = forms.BooleanField(required=False)
-    university_library= forms.BooleanField(required=False)
-    university_accommodations_section = forms.BooleanField(required=False)
-    catering_section = forms.BooleanField(required=False)
-    health_unit = forms.BooleanField(required=False)
-    games_and_sports_office = forms.BooleanField(required=False)
-    dean_of_students = forms.BooleanField(required=False)
-    central_services = forms.BooleanField(required=False)
-    student_finance = forms.BooleanField(required=False)
-    registrar = forms.BooleanField(required=False)
-    finance_officer = forms.IntegerField(required=False)
+    hod = forms.ChoiceField(required=False, choices=is_cleared)
+    dean_of_school = forms.ChoiceField(required=False, choices=is_cleared)
+    university_library= forms.ChoiceField(required=False, choices=is_cleared)
+    university_accommodations_section = forms.ChoiceField(required=False, choices=is_cleared)
+    catering_section = forms.ChoiceField(required=False, choices=is_cleared)
+    health_unit = forms.ChoiceField(required=False, choices=is_cleared)
+    games_and_sports_office = forms.ChoiceField(required=False, choices=is_cleared)
+    dean_of_students = forms.ChoiceField(required=False, choices=is_cleared)
+    central_services = forms.ChoiceField(required=False, choices=is_cleared)
+    student_finance = forms.ChoiceField(required=False, choices=is_cleared)
+    registrar = forms.ChoiceField(required=False, choices=is_cleared)
+    finance_officer = forms.IntegerField()
         
     
 

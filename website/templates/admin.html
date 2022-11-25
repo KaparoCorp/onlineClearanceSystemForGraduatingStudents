@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{% static 'static/create.css'%}">
 {% endblock %}
 
-
     {% block content %}
         <div class="form">
             <form method="POST" action="">
@@ -20,7 +19,7 @@
                 {{form|crispy}}
                 <div class="btn-deco">
                     <input type="submit" class="btn" name="save" value="register">
-                    <a href="/clearanceRegistration/clearance">Add clearance form</a>
+                    <a href="/adminPage">Add clearance form</a>
                 </div>
                 
             </form>

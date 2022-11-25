@@ -1,3 +1,10 @@
+*{
+    box-sizing: border-box;
+}
+header img{
+    position: relative;
+    left: 25%;
+}
 ul{
     display:flex;
 }
@@ -22,8 +29,53 @@ ul li a:hover{
     color: white;
     background-color: black;
 }
-
 h1{
     text-transform: uppercase;
     text-align: center;
+}
+
+h2{
+    text-transform: uppercase;
+}
+
+.questions{
+    width: 100%;
+    padding: 2rem 4rem;
+    animation: boarderDrawer 5s ease-in-out 1s infinite normal forwards ;
+}
+.accordionContainer{
+    width:70%;
+    position: relative;
+    margin: 10px 10px;
+}
+
+.accordionContainer .label{
+    position: relative;
+    padding: 10px 0;
+}
+
+.accordionContainer .label::before{
+    content:"+";
+    color:black;
+    position:absolute;
+    top:50%;
+    right:-5px;
+    transform: translateY(-50%);
+}
+.accordionContent{
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+    height:50px;
+    padding-top: 1rem;
+}
+
+.accordionContent p{
+    margin: 0;
+}
+
+
+.accordionContainer.active .label::before{
+    content: "-";
+    size: 30px;
 }

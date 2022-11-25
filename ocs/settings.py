@@ -130,5 +130,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "/home"
+# Default login and logout redirect urls
+
+LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+#Email settings
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT =    587
+EMAIL_HOST_USER = 'kaparocorp@gmail.com'
+EMAIL_HOST_PASSWORD = 'I Love God Always.5'
