@@ -7,9 +7,11 @@ from .form import LoginForm, register , StudentForm, AdminClearance
 from django.contrib.auth.forms import UserCreationForm 
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User , Group
-from .models import UserInfo, Student, ClearanceForm
+from .models import UserInfo, Student, ClearanceForm, Hod, DeanOfSchool, University_library, UniversityAccommodationsSection,CateringSection, HealthUnit, GamesAndSportsOffice,DeanOfStudents, CentralServices, StudentsFinance, Registrar,FinanceOfficer 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.timezone import localdate
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -47,10 +49,8 @@ def loginView(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                group = Group.objects.get(name='studentGroup')
-                user.groups.add(group)
                 login(request, user)
-                return redirect('home')
+                return redirect('clearanceRegistration')
             else:
                 messages.error(request, ('username or password is invalid'))
                 return render(request, "registration/login.html", {'form': form,})
@@ -113,10 +113,8 @@ def studentClearance(request):
                 registrar= registrar,
                 finance_officer=finance_officer,
                 )
-            if user.is_staff:
-                clearanceState.save()
-            else:
-                return redirect('home')
+            clearanceState.save()
+
             return redirect('clearance')
     else:
         form = AdminClearance()
@@ -129,5 +127,6 @@ def studentClearance(request):
 def clearance(request):
     user = request.user
     studentInfo = Student.objects.get(username=user.username)
-    clearanceformData = studentInfo.clearanceform_set.filter(student=studentInfo)[0]
-    return render(request, "clearanceform.html", {"user": user, "student":studentInfo, "clearanceformData":clearanceformData })
+    print(studentInfo)
+    clearanceformData = ClearanceForm.objects.get(student=studentInfo)
+    return render(request, "clearanceform.html", {"user": user, "student":studentInfo, "clearanceformData":clearanceformData  })
