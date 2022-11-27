@@ -4,6 +4,7 @@ I have choosen Sqlite as my database
 
 ## Creating virtual environment
 I started by fist runing my virtual environment by running 
+```
 > python3 -m venv ocs
 This set up a virtual environment and created a folder named "ocs"
 >ocs
@@ -11,6 +12,7 @@ This set up a virtual environment and created a folder named "ocs"
     >>Lib
     >>Script
     >>pyvenv.cfg
+```
 After I activated the environment
 >source ocs/bin/activate
 After I activated the virtual environment
@@ -19,15 +21,21 @@ I saw
 on the terminal window
 
 ## Installing Django
->>python3 -m pip install Django
+```
+python3 -m pip install Django
+```
 This installed Django
 To confirm installation after the script had run I tried to see the Django version installed by running
->django-admin --version
+```
+django-admin --version
+```
 It returned 4.0.3 and I had confirmed that Django had been installed successfully
 
 ## Creating project
 After I had to create my project 
+```
 >django-admin startproject ocs
+```
 I called the filename of my project and environment the same for easier access of files 
 This created a folder
 >ocs
